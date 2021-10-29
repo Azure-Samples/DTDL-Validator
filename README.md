@@ -47,16 +47,17 @@ dotnet publish -r win-x64 -c Release /p:PublishSingleFile=true
 
 in the root folder of the repo.
 
-### Running in macOS
+### Running with a Script
 
-1. Build the app: `dotnet build` (from the DTDLValidator-Sample folder)
-2. This will build the application and produce a file, `DTDLValidator.dll`, in the `DTDLValidator/bin/Debug/netcoreapp3.1` folder
-3. Using the DTDL Validator DLL that was created from the previous step, run: `dotnet $pathofdll` (Run this command where your DTDL files live or the files that you are trying to validate).
+The shell script `DTDLValidator.sh` can also be used to build and run the compiled dll to validate the files. This script takes in 2 arguments:
+
+1. Directory path of the DTDLValidator-Sample
+2. Directory path of the where the files are that need validation
 
 ## Running within VSCode
 
 1. Open the folder `DTDLValidator-Sample` with VSCode
-2. Within the `.vscode` folder, a launch file which has the configuration to build and run the application.
+2. Within the `.vscode` folder, `launch.json` has the configuration to build and run the application.
 3. Press `F5` to build and run the application to validate the files.
 
 *Note: within the `launch.json`, the working directory can be changed to the directory where the json files are stored for validation.
