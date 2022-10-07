@@ -2,6 +2,8 @@ import sys
 import time
 
 from jlog import logger
+from azure.core.exceptions import HttpResponseError
+from azure.core.exceptions import ClientAuthenticationError
 from azure.mgmt.digitaltwins import AzureDigitalTwinsManagementClient
 from azure.mgmt.digitaltwins.v2022_05_31.models import DigitalTwinsResource
 from azure.identity import DefaultAzureCredential
@@ -24,8 +26,8 @@ instance = None
 
 try:
     instance = digitalTwinsClient.digital_twins.get(resource_group, instance_name)
-except:
-    logger.error("DigitalTwins instance not found. Exiting.")
+except (HttpResponseError, ClientAuthenticationError) as e:
+    logger.exception(e)
     exit()
 
 logger.info("Succesfully retrieved %s.", instance.name)
