@@ -139,7 +139,7 @@ namespace DTDLValidator.Interactive
                 Dtmi dt = new Dtmi(dtmi);
                 return dt;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }

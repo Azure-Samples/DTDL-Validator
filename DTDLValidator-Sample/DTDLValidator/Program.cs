@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DTDLValidator
@@ -53,7 +54,7 @@ namespace DTDLValidator
                 Log.Alert("Entering interactive mode");
                 Interactive.Interactive i = new Interactive.Interactive();
                 return;
-            } 
+            }
 
             DirectoryInfo dinfo = null;
             try
@@ -111,18 +112,23 @@ namespace DTDLValidator
                         errJson++;
                     }
                 }
-                if (errJson>0)
+                if (errJson > 0)
                 {
                     Log.Error($"\nFound  {errJson} Json parsing errors");
                     return;
                 }
                 Log.Ok($"Validated JSON for all files - now validating DTDL");
                 List<string> modelList = modelDict.Values.ToList<string>();
-                ModelParser parser = new ModelParser();
-                parser.DtmiResolver = Resolver;
+                ModelParser parser = new ModelParser(
+                    new ParsingOptions()
+                    {
+                        DtmiResolverAsync = Resolver
+                    }
+                );
+                
                 try
                 {
-                    IReadOnlyDictionary<Dtmi, DTEntityInfo> om = parser.ParseAsync( modelList).GetAwaiter().GetResult();
+                    IReadOnlyDictionary<Dtmi, DTEntityInfo> om = parser.Parse(modelList);
                     Log.Out("");
                     Log.Ok($"**********************************************");
                     Log.Ok($"** Validated all files - Your DTDL is valid **");
@@ -146,19 +152,22 @@ namespace DTDLValidator
                 }
                 catch (ResolutionException rex)
                 {
-                    Log.Error("Could not resolve required references");
+                    Log.Error("Could not resolve required references: " + rex.Message);
                 }
             } 
         }
 
-        static async Task<IEnumerable<string>> Resolver(IReadOnlyCollection<Dtmi> dtmis)
+#pragma warning disable CS8425 // Async-iterator member has one or more parameters of type 'CancellationToken' but none of them is decorated with the 'EnumeratorCancellation' attribute, so the cancellation token parameter from the generated 'IAsyncEnumerable<>.GetAsyncEnumerator' will be unconsumed
+        static async IAsyncEnumerable<string> Resolver(IReadOnlyCollection<Dtmi> dtmis, CancellationToken cancellationToken)
+#pragma warning restore CS8425 // Async-iterator member has one or more parameters of type 'CancellationToken' but none of them is decorated with the 'EnumeratorCancellation' attribute, so the cancellation token parameter from the generated 'IAsyncEnumerable<>.GetAsyncEnumerator' will be unconsumed
         {
             Log.Error($"*** Error parsing models. Missing:");
             foreach (Dtmi d in dtmis)
             {
                 Log.Error($"  {d}");
             }
-            return null;
+            await Task.Yield();
+            yield return null;
         }
 
         static void HandleParseError(IEnumerable<Error> errs)

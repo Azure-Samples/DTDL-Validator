@@ -39,7 +39,7 @@ namespace DTDLValidator.Interactive
             Console.WriteLine();
             try
             {
-                (IReadOnlyDictionary<Dtmi, DTEntityInfo> entities, IEnumerable<DTInterfaceInfo> resolvedInterfaces) = await p.DTDLParser.ParseAsync(modelTexts);
+                (IReadOnlyDictionary<Dtmi, DTEntityInfo> entities, IEnumerable<DTInterfaceInfo> resolvedInterfaces) = await p.DTDLParser.ParseAsync(modelTexts.AsAsyncEnumerable());
                 foreach (Dtmi entityDtmi in entities.Keys)
                 {
                     Log.Ok($"Parsed {entityDtmi.AbsoluteUri}");

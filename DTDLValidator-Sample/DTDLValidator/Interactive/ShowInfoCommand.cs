@@ -54,7 +54,7 @@ namespace DTDLValidator.Interactive
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Log.Error($"{ModelId} is not a valid dtmi");
             }

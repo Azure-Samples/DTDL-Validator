@@ -27,7 +27,7 @@ namespace DTDLValidator.Interactive
                     Console.WriteLine(@interface.GetJsonLdText());
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Log.Error($"{ModelId} is not a valid dtmi");
             }
