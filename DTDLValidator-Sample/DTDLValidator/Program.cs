@@ -122,7 +122,7 @@ namespace DTDLValidator
                 parser.DtmiResolver = Resolver;
                 try
                 {
-                    IReadOnlyDictionary<Dtmi, DTEntityInfo> om = parser.ParseAsync(modelList).GetAwaiter().GetResult();
+                    IReadOnlyDictionary<Dtmi, DTEntityInfo> om = parser.ParseAsync( modelList).GetAwaiter().GetResult();
                     Log.Out("");
                     Log.Ok($"**********************************************");
                     Log.Ok($"** Validated all files - Your DTDL is valid **");
