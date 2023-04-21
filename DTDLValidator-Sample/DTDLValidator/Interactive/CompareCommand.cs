@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DTDLValidator.Interactive
-{
     [Verb("compare", HelpText = "Compare two models.")]
     internal class CompareCommand
     {
