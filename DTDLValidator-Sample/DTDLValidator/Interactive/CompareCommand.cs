@@ -1,10 +1,7 @@
 ﻿using CommandLine;
-using Microsoft.Azure.DigitalTwins.Parser;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DTDLValidator.Interactive
@@ -53,8 +50,8 @@ namespace DTDLValidator.Interactive
                 return Task.FromResult<object>(null);
             }
 
-            Dictionary<string, DTContentInfo> con1 = dt1.Contents;
-            Dictionary<string, DTContentInfo> con2 = dt2.Contents;
+            IReadOnlyDictionary<string, DTContentInfo> con1 = dt1.Contents;
+            IReadOnlyDictionary<string, DTContentInfo> con2 = dt2.Contents;
             
             var props1 = con1
                             .Where(p => p.Value.EntityKind == DTEntityKind.Property)

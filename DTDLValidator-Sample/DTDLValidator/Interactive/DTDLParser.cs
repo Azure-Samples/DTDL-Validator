@@ -1,4 +1,4 @@
-﻿using Microsoft.Azure.DigitalTwins.Parser;
+﻿using DTDLParser;
 using System;
 using System.Collections.Generic;
 using System.Text;
