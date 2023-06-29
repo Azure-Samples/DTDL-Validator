@@ -10,6 +10,8 @@ description: A code sample for validating DTDL model code
 urlFragment: dtdl-validator
 ---
 
+*Status note on 6/9/23: This project is being archived in favor of the examples in the [DTDL parser repository](https://github.com/digitaltwinconsortium/DTDLParser/tree/main/samples/DTDLParserResolveSample), which are more recently maintained.*
+
 # Introduction 
 This project demonstrates use of the Azure Digital Twins DTDL parser, available [here](https://nuget.org/packages/Microsoft.Azure.DigitalTwins.Parser/) on NuGet. It  is language-agnostic, and can be used as a command line utility to validate a directory tree of DTDL files. It also provides an interactive mode.
 
