@@ -3,17 +3,11 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
-    <PackAsTool>true</PackAsTool>
-    <ToolCommandName>dtdl-validator</ToolCommandName>
-    <PackageOutputPath>./nupkg</PackageOutputPath>
-    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <PublishSingleFile>true</PublishSingleFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.7.82" />
-    <PackageReference Include="Microsoft.Azure.DigitalTwins.Parser" Version="6.4.0-preview" />
+    <PackageReference Include="DTDLParser" Version="1.0.48-preview-g91a6ae2e88" />
   </ItemGroup>
 
 </Project>

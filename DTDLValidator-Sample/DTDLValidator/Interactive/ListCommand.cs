@@ -1,10 +1,12 @@
-﻿namespace DTDLValidator.Interactive
-{
-    using CommandLine;
-    using Microsoft.Azure.DigitalTwins.Parser.Models;
-    using System;
-    using System.Threading.Tasks;
+﻿using CommandLine;
+using DTDLParser;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace DTDLValidator.Interactive
+{
     [Verb("list", HelpText = "List models.")]
     internal class ListCommand
     {

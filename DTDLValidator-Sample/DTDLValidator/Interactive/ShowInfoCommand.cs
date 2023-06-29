@@ -1,13 +1,12 @@
-﻿namespace DTDLValidator.Interactive
-{
-    using CommandLine;
-    using Microsoft.Azure.DigitalTwins.Parser;
-    using Microsoft.Azure.DigitalTwins.Parser.Models;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+﻿using CommandLine;
+using DTDLParser;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
+namespace DTDLValidator.Interactive
+{
     [Verb("showinfo", HelpText = "Display parent interfaces, properties and relationships defined in a model, taking inheritance into account")]
     internal class ShowInfoCommand
     {
@@ -21,7 +20,6 @@
                 Log.Error("Please specify a valid model id");
                 return Task.FromResult<object>(null);
             }
-
             try
             {
                 Dtmi modelId = new Dtmi(ModelId);
@@ -33,7 +31,6 @@
                     {
                         Log.Ok($"    {parent.Id}");
                     }
-
                     IReadOnlyDictionary<string, DTContentInfo> contents = dti.Contents;
                     Log.Alert($"  Properties:");
                     var props = contents
@@ -44,7 +41,6 @@
                         pi.Schema.DisplayName.TryGetValue("en", out string displayName);
                         Log.Out($"    {pi.Name}: {displayName ?? pi.Schema.ToString()}");
                     }
-
                     Log.Out($"  Relationships:", ConsoleColor.DarkMagenta);
                     var rels = contents
                                     .Where(p => p.Value.EntityKind == DTEntityKind.Relationship)

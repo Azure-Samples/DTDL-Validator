@@ -1,15 +1,14 @@
-﻿namespace DTDLValidator.Interactive
-{
-    using CommandLine;
-    using Microsoft.Azure.DigitalTwins.Parser;
-    using Microsoft.Azure.DigitalTwins.Parser.Models;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.IO;
-    using System.Linq;
-    using System.Threading.Tasks;
+﻿using CommandLine;
+using DTDLParser;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
+namespace DTDLValidator.Interactive
+{
     [Verb("load", HelpText = "Load models.")]
     internal class LoadCommand
     {
@@ -40,7 +39,7 @@
             Console.WriteLine();
             try
             {
-                (IReadOnlyDictionary<Dtmi, DTEntityInfo> entities, IEnumerable<DTInterfaceInfo> resolvedInterfaces) = await p.DTDLParser.ParseAsync(modelTexts);
+                (IReadOnlyDictionary<Dtmi, DTEntityInfo> entities, IEnumerable<DTInterfaceInfo> resolvedInterfaces) = await p.DTDLParser.ParseAsync(modelTexts.AsAsyncEnumerable());
                 foreach (Dtmi entityDtmi in entities.Keys)
                 {
                     Log.Ok($"Parsed {entityDtmi.AbsoluteUri}");

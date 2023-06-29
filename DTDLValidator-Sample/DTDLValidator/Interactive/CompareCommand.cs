@@ -1,8 +1,6 @@
 ﻿namespace DTDLValidator.Interactive
 {
     using CommandLine;
-    using Microsoft.Azure.DigitalTwins.Parser;
-    using Microsoft.Azure.DigitalTwins.Parser.Models;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -34,7 +32,7 @@
             DTInterfaceInfo dt1 = null;
             DTInterfaceInfo dt2 = null;
 
-            if (first!=null && p.Models.TryGetValue(first, out dt1))
+            if (first != null && p.Models.TryGetValue(first, out dt1))
                 firstValid = true;
             if (second != null && p.Models.TryGetValue(second, out dt2))
                 secondValid = true;
@@ -43,7 +41,7 @@
             {
                 if (first == null)
                     Log.Error($"First model not a valid dtmi");
-                if (first!=null && firstValid == false)
+                if (first != null && firstValid == false)
                     Log.Error($"First model not found in loaded models");
                 if (second == null)
                     Log.Error($"Second model not a valid dtmi");
@@ -54,7 +52,7 @@
 
             IReadOnlyDictionary<string, DTContentInfo> con1 = dt1.Contents;
             IReadOnlyDictionary<string, DTContentInfo> con2 = dt2.Contents;
-            
+
             var props1 = con1
                             .Where(p => p.Value.EntityKind == DTEntityKind.Property)
                             .Select(p => p.Value as DTPropertyInfo);

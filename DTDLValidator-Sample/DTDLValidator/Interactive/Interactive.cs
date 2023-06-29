@@ -1,13 +1,12 @@
-﻿namespace DTDLValidator.Interactive
-{
-    using CommandLine;
-    using Microsoft.Azure.DigitalTwins.Parser;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using System.Linq;
-    using Microsoft.Azure.DigitalTwins.Parser.Models;
+﻿using CommandLine;
+using DTDLParser;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Linq;
 
+namespace DTDLValidator.Interactive
+{
     class Interactive
     {
         public Interactive()
@@ -54,7 +53,6 @@
             {
                 Log.Alert("Your command contains an uneven number of quotes. Was that intended?");
             }
-
             string[] segments = arg.Split('"', StringSplitOptions.RemoveEmptyEntries);
             List<string> elements = new List<string>();
             for (int i = 0; i < segments.Length; i++)
@@ -70,7 +68,6 @@
                     elements.Add(segments[i].Trim());
                 }
             }
-
             return elements.ToArray();
         }
     }
